@@ -28,20 +28,19 @@
       display: flex;
       flex-direction: row;
       padding: 10px;
-
     }
     .cont {
       margin: 10px;
       background-color: transparent;
-      width: 54%;
+      width: 378px; /* 54% of 700px */
       border-radius: 25px;
-      margin-right: 2%;
+      margin-right: 14px; /* 2% of 700px */
       padding: 0px;
       align-content: safe;
     }
     .ima {
       background-color: transparent;
-      width: 44%;
+      width: 308px; /* 44% of 700px */
       border-radius: 25px;
       align-self: flex-start;
     }
@@ -51,41 +50,76 @@
       object-fit: cover;
       border-radius: 25px;
     }
-    p,table {
+    p, table {
       font-size: 16px;
     }
-    .bullet{
+    .bullet {
       width: 15px;
     }
     input {
       font-size: 16px;
+      margin-top: 20px;
       text-align: center;
-      width: 80%;
-      height: 8%;
+      width: 345px;
+      height: 35px;
+      border-width: 2px;
+      border-radius: 5px;
     }
-    button {
-      height: 38px;
-      font-size: 12px;
-      width: 83%;
+    input:hover {
+      border-width: 1px;
+      border-color: rgb(116, 116, 116);
+    }
+    .sub {
+      height: 42px;
+      font-size: 15px;
+      width: 350px; /* 83% of 700px */
       text-align: center;
       margin-top: 10px;
       border: none;
       color: hsl(0, 0%, 100%);
       background-color: hsl(234, 29%, 20%);
+      transition: 0.1s;
+      box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
     }
-    button:hover {
+       
+    .sub:active,.dis:active {
+      transform: scale(0.98);
+      /* Scaling button to 0.98 to its original size */
+      box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+      /* Lowering the shadow */
+    }
+    .dis {
+      height: 35px;
+      font-size: 12px;
+      width: 140px;
+      text-align: center;
+      margin-top: 10px;
+      border: none;
+      color: hsl(0, 0%, 100%);
+      background-color: hsl(234, 29%, 20%);
+      transition: 0.1s;
+      border-radius: 10px;
+    }
+    .sub:hover,.dis:hover {
       background: rgb(255,90,104);
       cursor: pointer;
       background: linear-gradient(90deg, rgba(255,90,104,1) 0%, rgba(255,99,76,1) 100%);
+      box-shadow: 0px 3px 6px rgba(255, 90, 104, 0.4), 0px 3px 6px rgba(255, 99, 76, 0.4);
     }
-
     /* New CSS for the success message */
     .success-message {
+      padding: 20px;
       display: none;
       text-align: center;
       margin-top: 20px;
       font-size: 18px;
       color: hsl(234, 29%, 20%);
+      width: 300px; 
+      height: 330px; 
+      font-size: large;
+      border-radius: 20px;
+      background-color: white;
     }
 
     .show-success .main {
@@ -95,25 +129,28 @@
     .show-success .success-message {
       display: block;
     }
-    .success-message {
-        width: 27%;
-        height: 50%;
-        font-size: large;
-        border-radius: 20px;
-        background-color: white;
+
+    /* Add a new class for the red border to indicate validation error */
+    .invalid-input {
+      border: 1px solid hsl(4, 100%, 67%);
     }
 
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
+    /* Add a new class for the error message */
+    .error-message {
+      color: hsl(4, 100%, 67%);
+      font-size: 12px;
+      margin-top: 5px;
+      text-align: right;
+    }
   </style>
 </head>
 <body>
   <div class="main-wrapper">
     <div class="main">
       <div class="cont">
-        <h1 style="text-align: center;font-size: 24px;">Stay updated!</h1>
+        <h1 style="text-align: center;font-size: 30px;">Stay updated!</h1>
 
-        <p style="text-align: left;">60,000+ product managers receiving monthly updates on:</p>
+        <p style="text-align: left;margin-top: 40px;">60,000+ product managers receiving monthly updates on:</p>
         
         <table style="text-align: left;">
           <tr>
@@ -131,26 +168,29 @@
         </table>
         
             
-        <h4 style="margin-top: 4%;margin-bottom: 2%;">Email address</h4>
-        <input type="email" placeholder="email@company.com">
+        <h4 style="margin-top: 6px; margin-bottom: -10px;">Email address</h4>
+        <!-- Add a new element for the error message -->
+        <div class="error-message" id="errorMessage" style="margin-bottom: -16px;margin-right: 15px;">&nbsp;</div>
+        <!-- Add a new ID to the input for easier manipulation -->
+        <input type="email" id="emailInput" placeholder="email@company.com" draggable="false" required>
             
-        <button onclick="showSuccessMessage()">Subscribe to monthly newsletter</button> 
+        <button class="sub" onclick="subscribe()">Subscribe to monthly newsletter</button> 
       </div>
       <div class="ima">
-        <img src="assets/images/illustration-sign-up-desktop.svg" alt="Illustration">
+        <img src="assets/images/illustration-sign-up-desktop.svg" alt="Illustration" draggable="false">
       </div>
     </div>
   </div>
 
   <!-- Success message div -->
   <div class="success-message">
-    <img src="assets/images/icon-success.svg" >
-    <h3>Thanks for subscribing!</h3>
+    <div style="text-align: left;"><img src="assets/images/icon-success.svg"></div>
+    <h1 style="margin-top: -10px;">Thanks for subscribing!</h1>
 
-    <p>A confirmation email has been sent to ash@loremcompany.com. 
+    <p style="text-align: left;">A confirmation email has been sent to <span id="email_var" style="font-weight: 600;"></span> .
     Please open it and click the button inside to confirm your subscription.</p>
 
-    <button class="dis">Dismiss message</button>
+    <button class="dis" onclick="dismissSuccessMessage()">Dismiss message</button>
   </div>
   
   <!--<div class="attribution">
@@ -159,14 +199,57 @@
   </div>-->
 
   <script>
+    function subscribe() {
+      var emailInput = document.getElementById('emailInput');
+      var email = emailInput.value;
+
+      // Validate the email format using a regular expression
+      var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      var isValidEmail = emailRegex.test(email);
+
+      // Get the error message element
+      var errorMessage = document.getElementById('errorMessage');
+
+      if (!isValidEmail) {
+        // If the email is invalid, add the invalid-input class to the input field
+        emailInput.classList.add('invalid-input');
+        // Show the error message
+        errorMessage.textContent = 'Valid email required';
+      } else {
+        // If the email is valid, remove the invalid-input class and clear the error message
+        emailInput.classList.remove('invalid-input');
+        errorMessage.textContent = '';
+
+        // Proceed with showing the success message
+        showSuccessMessage();
+      }
+    }
+
     function showSuccessMessage() {
-  var mainWrapper = document.querySelector('.main-wrapper');
-  mainWrapper.style.display = 'none';
+      var mainWrapper = document.querySelector('.main-wrapper');
+      mainWrapper.style.display = 'none';
 
-  var successMessage = document.querySelector('.success-message');
-  successMessage.style.display = 'block';
-}
+      var successMessage = document.querySelector('.success-message');
+      successMessage.style.display = 'block';
 
+      var emailInput = document.querySelector('input[type="email"]');
+      var email = emailInput.value;
+
+      // Display the email in the success message
+      var emailSpan = document.getElementById('email_var');
+      emailSpan.textContent = email;
+    }
+
+    function dismissSuccessMessage() {
+      var mainWrapper = document.querySelector('.main-wrapper');
+      mainWrapper.style.display = 'block';
+
+      var successMessage = document.querySelector('.success-message');
+      successMessage.style.display = 'none';
+
+      var emailInput = document.getElementById('emailInput');
+      emailInput.value = ''; // Clearing the email input field
+    }
   </script>
 </body>
 </html>
