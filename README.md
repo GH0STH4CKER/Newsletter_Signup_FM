@@ -39,6 +39,6 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Github Repo]([https://your-solution-url.com](https://github.com/GH0STH4CKER/Newsletter_Signup_FM))
-- Live Site URL: [Live URL]([https://your-live-site-url.com](https://gh0sth4cker.github.io/Newsletter_Signup_FM/)
+- Solution URL: <a href='https://github.com/GH0STH4CKER/Newsletter_Signup_FM'>Github Repo</a>
+- Live Site URL: <a href='https://gh0sth4cker.github.io/Newsletter_Signup_FM/'>Live URL</a>
 
